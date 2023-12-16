@@ -22,4 +22,13 @@ jobs:
     - run: npm install
     - run: npm run test:unit
     
-    
+  deploy-render:
+    needs: test-unit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to rosentoshkov-exam.onrender.com
+        uses: johnbeynon/render-deploy-action@v0.0.8
+        with:
+          service-id: ${{ secrets.RENDER_SERVICE_ID }}
+          api-key: ${{ secrets.RENDER_API_KEY }}
+          wait-for-success: true
